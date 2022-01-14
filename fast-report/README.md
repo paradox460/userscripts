@@ -7,4 +7,4 @@ This UserScript adds a simple button to the thing toolbar, titled `f-report` (fo
 Click `f-report`, and a text area appears. Type your report, and hit `Enter`. Your report is done! Hit `Esc` if you didn't want to actually report anything.
 
 
-[Click here to install](https://gist.github.com/paradox460/034e98e40401a8b0553a33e631a19730/raw/fast-report.user.js)
+[Click here to install](https://github.com/paradox460/userscripts/raw/master/fast-report/fast-report.user.js)
