@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name         Taskerbot in Toolbox
 // @namespace    https://userscripts.pdx.su
-// @version      0.6
+// @version      0.7
 // @description  Add taskerbot to the moderator toolbox
 // @author       You
 // @match        https://www.reddit.com/*
 // @grant        none
-// @downloadURL https://gist.github.com/paradox460/30efa3b700256e19eda7d69f799e2bc9/raw/taskerbot.user.js
-// @updateURL https://gist.github.com/paradox460/30efa3b700256e19eda7d69f799e2bc9/raw/taskerbot.user.js
+// @downloadURL https://github.com/paradox460/userscripts/raw/master/taskerbot-enhancements/taskerbot.user.js
+// @updateURL https://github.com/paradox460/userscripts/raw/master/taskerbot-enhancements/taskerbot.user.js
 // ==/UserScript==
 
 (function() {

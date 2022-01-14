@@ -1,3 +1,6 @@
+# 0.7
+Move update location to github repo
+
 # 0.6
 Automatically distinguishes removal comments, so you get tracking for mod actions
 # 0.5

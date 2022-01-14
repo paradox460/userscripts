@@ -1,15 +1,15 @@
 // ==UserScript==
 // @name         Fast Reports for Reddit
 // @namespace    http://userscripts.pdx.su
-// @version      0.1
+// @version      0.2
 // @description  Provide fast report interface for old reddit
 // @author       Paradox
 // @run-at document-end
 // @match        https://*.reddit.com/*
 // @icon         https://www.google.com/s2/favicons?domain=reddit.com
 // @grant        none
-// @downloadURL https://gist.github.com/paradox460/034e98e40401a8b0553a33e631a19730/raw/fast-report.user.js
-// @updateURL https://gist.github.com/paradox460/034e98e40401a8b0553a33e631a19730/raw/fast-report.user.js
+// @downloadURL https://github.com/paradox460/userscripts/raw/master/fast-report/fast-report.user.js
+// @updateURL https://github.com/paradox460/userscripts/raw/master/fast-report/fast-report.user.js
 // ==/UserScript==
 /*eslint-env browser*/
 
