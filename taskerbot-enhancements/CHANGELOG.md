@@ -1,3 +1,6 @@
+# 0.8
+Add the ability to post the rule comments as a subreddit moderator account/removal reason. Set the `removeAsSubreddit` value in your userscript config to `true` (no quotes)
+
 # 0.7
 Move update location to github repo
 

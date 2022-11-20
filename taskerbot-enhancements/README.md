@@ -6,3 +6,9 @@ Also adds a button to your profile page, letting you easily scrub any removed co
 
 
 [Click here to install](https://github.com/paradox460/userscripts/raw/master/taskerbot-enhancements/taskerbot.user.js)
+
+# Configuration
+
+| Property            | Type    | Default | Description                                                                              |
+| ------------------- | ------- | ------- | ---------------------------------------------------------------------------------------- |
+| `removeAsSubreddit` | Boolean | `false` | If true, removal comments will be posted from the subreddit's built-in moderator account |
