@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name         Fast Reports for Reddit
 // @namespace    http://userscripts.pdx.su
-// @version      0.2
+// @version      0.3
 // @description  Provide fast report interface for old reddit
 // @author       Paradox
 // @run-at document-end
 // @match        https://*.reddit.com/*
 // @icon         https://www.google.com/s2/favicons?domain=reddit.com
-// @grant        none
+// @grant        GM_getValue
 // @downloadURL https://github.com/paradox460/userscripts/raw/master/fast-report/fast-report.user.js
 // @updateURL https://github.com/paradox460/userscripts/raw/master/fast-report/fast-report.user.js
 // ==/UserScript==
@@ -38,17 +38,62 @@ function generateFastReportLink() {
   return link;
 }
 
-function renderFastReportContainer(element) {
-  const link = generateFastReportLink()
-  const li = document.createElement('li');
-  li.classList.add('fast-report-button');
-  li.appendChild(link)
+function generateBotReportLink() {
+  const link = document.createElement('a')
+  link.classList.add('bot-report-link');
+  link.href = 'javascript:void(0)';
+  link.addEventListener('click', e => {
+    reportBot(e.target).then(() => link.parentElement.remove());
+  });
+  link.appendChild(document.createTextNode('🤖-report'));
 
-  element.insertAdjacentElement('beforebegin', li);
+  return link;
 }
 
+function renderReportContainers(element) {
+  const links = [
+    generateFastReportLink(),
+    GM_getValue('botReports') ? generateBotReportLink() : null
+  ]
+  for (const link of links) {
+    const li = document.createElement('li');
+    li.classList.add('fast-report-button');
+    li.appendChild(link)
+
+    element.insertAdjacentElement('beforebegin', li);
+  }
+}
+
+
 function scanAndAddReportLinks() {
-  document.querySelectorAll(reportBtnSelector).forEach(renderFastReportContainer);
+  document.querySelectorAll(reportBtnSelector).forEach(renderReportContainers);
+}
+
+async function reportBot(element) {
+  const username = element.closest('.thing').dataset.author;
+  const uh = getUh();
+  const form = {
+    "title": `/u/${username}`,
+    "kind": "link",
+    "url": `https://old.reddit.com/user/${username}`,
+    "submit_type": "subreddit",
+    "sr": "BotDefense",
+    "sendreplies": true,
+    "id": "#newlink",
+    "r": "BotDefense",
+    uh
+  }
+
+  const body = new FormData();
+  for (const [k, v] of Object.entries(form)) {
+    body.append(k, v);
+  }
+
+  await fetch('/api/submit', {
+    method: 'POST',
+    credentials: 'include',
+    body
+  })
 }
 
 function showReportTA(element) {
@@ -58,7 +103,7 @@ function showReportTA(element) {
   input.addEventListener('keydown', e => {
     if (e.isComposing) { return }
     if (e.key == 'Enter') {
-      submitReport(input.value, e.target);
+      submitReport(input.value, e.target).then(() => e.parentElement.remove());
     } else if (e.key == 'Escape') {
       e.target.replaceWith(generateFastReportLink());
     }
@@ -83,8 +128,6 @@ async function submitReport(reportReason, element) {
     credentials: 'include',
     body,
   });
-
-  element.parentNode.remove();
 }
 
 // MAIN
