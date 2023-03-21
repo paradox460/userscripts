@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Fast Reports for Reddit
 // @namespace    http://userscripts.pdx.su
-// @version      0.4
+// @version      0.5
 // @description  Provide fast report interface for old reddit
 // @author       Paradox
 // @run-at       document-end
@@ -110,6 +110,19 @@ function showReportTA(element) {
   const input = document.createElement('input');
   input.classList.add('fast-report-input');
   input.placeholder = 'Report reason';
+
+  if (GM_getValue('reportReasons')) {
+    const datalist = document.createElement('datalist');
+    datalist.id = 'report-reasons'
+    for (const reason of GM_getValue('reportReasons')) {
+      const option = document.createElement('option');
+      option.value = reason;
+      datalist.appendChild(option);
+    }
+    element.insertAdjacentElement('afterend', datalist);
+    input.setAttribute('list', 'report-reasons');
+  }
+
   input.addEventListener('keydown', e => {
     if (e.isComposing) { return }
     if (e.key == 'Enter') {
