@@ -8,8 +8,9 @@
 // @match        https://*.reddit.com/*
 // @icon         https://www.google.com/s2/favicons?domain=reddit.com
 // @grant        GM_getValue
-// @downloadURL https://github.com/paradox460/userscripts/raw/master/fast-report/fast-report.user.js
-// @updateURL https://github.com/paradox460/userscripts/raw/master/fast-report/fast-report.user.js
+// @downloadURL  https://github.com/paradox460/userscripts/raw/master/fast-report/fast-report.user.js
+// @updateURL    https://github.com/paradox460/userscripts/raw/master/fast-report/fast-report.user.js
+// @homepageUrl  https://github.com/paradox460/userscripts/tree/master/fast-report
 // ==/UserScript==
 /*eslint-env browser*/
 
