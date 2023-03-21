@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Fast Reports for Reddit
 // @namespace    http://userscripts.pdx.su
-// @version      0.3
+// @version      0.3.1
 // @description  Provide fast report interface for old reddit
 // @author       Paradox
 // @run-at document-end
@@ -103,7 +103,7 @@ function showReportTA(element) {
   input.addEventListener('keydown', e => {
     if (e.isComposing) { return }
     if (e.key == 'Enter') {
-      submitReport(input.value, e.target).then(() => e.parentElement.remove());
+      submitReport(input.value, e.target).then(() => e.target.parentElement.remove());
     } else if (e.key == 'Escape') {
       e.target.replaceWith(generateFastReportLink());
     }

@@ -1,3 +1,6 @@
+# 0.3.1
+Bugfix for f-report form not submitting
+
 # 0.3
 Add BotDefense automatic report button. Disabled by default. Enable by setting `botReport` to `true` in script values.
 
