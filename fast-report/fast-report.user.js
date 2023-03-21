@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         Fast Reports for Reddit
 // @namespace    http://userscripts.pdx.su
-// @version      0.3.1
+// @version      0.4
 // @description  Provide fast report interface for old reddit
 // @author       Paradox
-// @run-at document-end
+// @run-at       document-end
 // @match        https://*.reddit.com/*
 // @icon         https://www.google.com/s2/favicons?domain=reddit.com
 // @grant        GM_getValue
@@ -24,7 +24,7 @@ function getUh() {
 }
 
 
-// REMOVAL FUNCTIONS
+// LINK GENERATION
 
 function generateFastReportLink() {
   const link = document.createElement('a')
@@ -68,6 +68,16 @@ function renderReportContainers(element) {
 function scanAndAddReportLinks() {
   document.querySelectorAll(reportBtnSelector).forEach(renderReportContainers);
 }
+
+const mObserver = new MutationObserver(() => {
+  scanAndAddReportLinks();
+})
+
+function startObserving() {
+  mObserver.observe(document.body, { childList: true, subtree: true });
+}
+
+// REPORTING
 
 async function reportBot(element) {
   const username = element.closest('.thing').dataset.author;
@@ -130,9 +140,11 @@ async function submitReport(reportReason, element) {
   });
 }
 
+
 // MAIN
 
 (function () {
   'use strict';
   scanAndAddReportLinks();
+  startObserving();
 })();
