@@ -1,10 +1,11 @@
 // ==UserScript==
 // @name         Taskerbot in Toolbox
 // @namespace    https://userscripts.pdx.su
-// @version      0.8
+// @version      0.9
 // @description  Add taskerbot to the moderator toolbox
 // @author       You
 // @match        https://www.reddit.com/*
+// @match        https://old.reddit.com/*
 // @grant        GM_getValue
 // @grant        GM_xmlhttpRequest
 // @downloadURL https://github.com/paradox460/userscripts/raw/master/taskerbot-enhancements/taskerbot.user.js
@@ -56,7 +57,7 @@ const tbClicked = (e) => {
 const cleanClicked = (e) => {
   if (!window.confirm("Delete every removed/spammed thing from the currently visible list?")) { return }
   // Get removed things
-  const things = [...document.querySelectorAll(".thing.spam")].reduce((acc, elem) => {
+  const things = [...document.querySelectorAll(".thing.spam, .thing[data-type=link][data-subreddit=BotDefense i]")].reduce((acc, elem) => {
     if (!isVisible(elem)) {
       return acc
     }
