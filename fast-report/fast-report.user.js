@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Fast Reports for Reddit
 // @namespace    http://userscripts.pdx.su
-// @version      0.5
+// @version      0.6
 // @description  Provide fast report interface for old reddit
 // @author       Paradox
 // @run-at       document-end
@@ -114,14 +114,26 @@ function showReportTA(element) {
 
   if (GM_getValue('reportReasons')) {
     const datalist = document.createElement('datalist');
-    datalist.id = 'report-reasons'
-    for (const reason of GM_getValue('reportReasons')) {
-      const option = document.createElement('option');
-      option.value = reason;
-      datalist.appendChild(option);
+    datalist.id = 'report-reasons';
+    const { subreddit } = element.closest('.thing').dataset;
+    const subReasons = GM_getValue('reportReasons')[subreddit];
+    const globalReasons = GM_getValue('reportReasons')['@global'];
+    if (subReasons || globalReasons) {
+      const reasonsObject = {
+        ...subReasons && { [subreddit]: subReasons },
+        ...globalReasons && { "Global": globalReasons }
+      };
+      for (const [group, reasons] of Object.entries(reasonsObject)) {
+        for (const reason of reasons) {
+          const option = document.createElement('option');
+          option.value = reason;
+          option.innerText = group.replace(/^@/, '');
+          datalist.appendChild(option);
+        }
+      }
+      element.insertAdjacentElement('afterend', datalist);
+      input.setAttribute('list', 'report-reasons');
     }
-    element.insertAdjacentElement('afterend', datalist);
-    input.setAttribute('list', 'report-reasons');
   }
 
   input.addEventListener('keydown', e => {

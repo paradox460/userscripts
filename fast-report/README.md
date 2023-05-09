@@ -8,14 +8,18 @@ Click `f-report`, and a text area appears. Type your report, and hit `Enter`. Yo
 
 ## Preset Reasons
 
-You can set some "presets", that appear in a type-ahead list. Set the `reportReasons` value in your userscript manager to a _JSON Array_ of strings, such as:
+You can set some "presets", that appear in a type-ahead list, both globally and on a per-subreddit basis. Set the `reportReasons` value in your userscript manager to a _JSON Object_, with global reasons in a `@global` key and per-subreddit reasons under subreddit keys.
 
 ```json
-["@rule 2", "hate", "spam"]
+{
+  "@global": ["hate", "spam", "repost"],
+  "Android": ["@rule 1", "@rule 2"],
+  "Cats": ["dog"]
+}
 ```
 
 > **Note:**
-> Implementation of the type-ahead depends on your browser. All browsers support it as of this writing, but details may vary
+> Subreddit names _must_ be exact. Case is important. `android` will not work, as the subreddit's name is `Android`.
 
 ## BotDefense submitting
 

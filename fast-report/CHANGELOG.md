@@ -1,3 +1,11 @@
+# 0.6
+
+Upgrade report reasons to support global and subreddit specific reasons.
+
+__This is a breaking change__.
+
+You will need to upgrade your `reportReasons` configuration to be an _object_ (a `{}` in javascript), with global reasons under the `@global` key.
+You can now add subreddit specific reasons under a key named for the subreddit.
 # 0.5
 
 Add configurable report reason presets.
