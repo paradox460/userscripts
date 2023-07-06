@@ -1,13 +1,12 @@
 // ==UserScript==
 // @name         Fast Reports for Reddit
 // @namespace    http://userscripts.pdx.su
-// @version      0.6
+// @version      0.7
 // @description  Provide fast report interface for old reddit
 // @author       Paradox
 // @run-at       document-end
 // @match        https://*.reddit.com/*
 // @icon         https://www.google.com/s2/favicons?domain=reddit.com
-// @grant        GM_getValue
 // @downloadURL  https://github.com/paradox460/userscripts/raw/master/fast-report/fast-report.user.js
 // @updateURL    https://github.com/paradox460/userscripts/raw/master/fast-report/fast-report.user.js
 // @homepageUrl  https://github.com/paradox460/userscripts/tree/master/fast-report
@@ -39,22 +38,9 @@ function generateFastReportLink() {
   return link;
 }
 
-function generateBotReportLink() {
-  const link = document.createElement('a')
-  link.classList.add('bot-report-link');
-  link.href = 'javascript:void(0)';
-  link.addEventListener('click', e => {
-    reportBot(e.target).then(() => link.parentElement.remove());
-  });
-  link.appendChild(document.createTextNode('🤖-report'));
-
-  return link;
-}
-
 function renderReportContainers(element) {
   const links = [
     generateFastReportLink(),
-    GM_getValue('botReports') ? generateBotReportLink() : null
   ]
   for (const link of links) {
     const li = document.createElement('li');
@@ -79,33 +65,6 @@ function startObserving() {
 }
 
 // REPORTING
-
-async function reportBot(element) {
-  const username = element.closest('.thing').dataset.author;
-  const uh = getUh();
-  const form = {
-    "title": `/u/${username}`,
-    "kind": "link",
-    "url": `https://old.reddit.com/user/${username}`,
-    "submit_type": "subreddit",
-    "sr": "BotDefense",
-    "sendreplies": true,
-    "id": "#newlink",
-    "r": "BotDefense",
-    uh
-  }
-
-  const body = new FormData();
-  for (const [k, v] of Object.entries(form)) {
-    body.append(k, v);
-  }
-
-  await fetch('/api/submit', {
-    method: 'POST',
-    credentials: 'include',
-    body
-  })
-}
 
 function showReportTA(element) {
   const input = document.createElement('input');
